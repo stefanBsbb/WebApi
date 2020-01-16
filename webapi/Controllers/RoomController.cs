@@ -5,58 +5,58 @@
     using Services.CustomModels;
     using Services.Implementations;
 
-    [Route("api/bookins")]
+    [Route("api/rooms")]
     [ApiController]
 
-    public class BookInController : ControllerBase
+    public class RoomController : ControllerBase
     {
-        private BookINManager manager;
-        public BookInController(BookINManager bookINManager)
+        private RoomManager manager;
+        public RoomController(RoomManager roomManager)
         {
-            this.manager = bookINManager;
+            this.manager = roomManager;
         }
 
         [HttpGet]
-        public IActionResult AllBookINs()
+        public IActionResult AllRooms()
         {
-            var all = manager.AllBookIns;
+            var all = manager.AllRooms;
 
             return Ok(all);
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddBookIN(BookINsModel model)
+        public IActionResult AddRoom(RoomModel model)
         {
 
             var res = manager.Add(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/rooms", model);
             }
             return BadRequest();
         }
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteBookIN(BookINsModel model)
+        public IActionResult DeleteRoom(RoomModel model)
         {
 
             var res = manager.Delete(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/rooms", model);
             }
             return BadRequest();
         }
         [HttpPut]
         [Route("edit")]
-        public IActionResult EditBookIN([FromBody]BookINsModel model)
+        public IActionResult EditRoom([FromBody]RoomModel model)
         {
 
             var res = manager.Update(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/rooms", model);
             }
             return BadRequest();
         }

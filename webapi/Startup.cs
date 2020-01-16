@@ -60,6 +60,10 @@ namespace webapi
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddScoped<BookINManager>();
             services.AddScoped<UserManager>();
+            services.AddScoped<EmployeeManager>();
+            services.AddScoped<HotelManager>();
+            services.AddScoped<VisitorManager>();
+            services.AddScoped<RoomManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

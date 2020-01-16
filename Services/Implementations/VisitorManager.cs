@@ -9,31 +9,34 @@
     using System.Collections.Generic;
     using System.Linq;
     using Data;
-    public class EmployeeManager : BaseManager<EmployeeModel>
+
+    public class VisitorManager : BaseManager<VisitorModel>
     {
         private HotelsDBContext dbContext;
-        public List<EmployeeModel> AllEmployees
+        public List<VisitorModel> AllVisitors
         {
             get
             {
-                var models = MapperConfiguratior.Mapper.Map<List<EmployeeModel>>(this.context.Employees.ToList());
+                var models = MapperConfiguratior.Mapper.Map<List<VisitorModel>>(this.context.Visitors.ToList());
                 return models;
             }
         }
-        public EmployeeManager() : base(new Data.HotelsDBContext())
+        public VisitorManager() : base(new Data.HotelsDBContext())
         {
 
         }
 
-        public override string Add(EmployeeModel model)
+        public override string Add(VisitorModel model)
         {
             try
             {
                 using (context)
                 {
 
-                    Employee employee = MapperConfiguratior.Mapper.Map<Employee>(model);
-                    this.context.Employees.Add(employee);
+                    Visitor visitor = MapperConfiguratior.Mapper.Map<Visitor>(model);
+                    //employee.EmployeeNumber = NumberGenerator.EmployeeNumberGenerator(context);
+
+                    this.context.Visitors.Add(visitor);
                     this.context.SaveChanges();
                     return "";
                 }
@@ -45,20 +48,20 @@
             }
         }
 
-        public override string Delete(EmployeeModel model)
+        public override string Delete(VisitorModel model)
         {
             try
             {
                 using (context)
                 {
-                    Employee employee = MapperConfiguratior.Mapper.Map<Employee>(model);
-                    this.context.Employees.Remove(employee);
+                    Visitor visitor = MapperConfiguratior.Mapper.Map<Visitor>(model);
+                    this.context.Visitors.Remove(visitor);
                     int res = this.context.SaveChanges();
                     if (res == 1)
                     {
                         return "";
                     }
-                    return string.Format($"{Messages.DeleteFails} Employee Id: {model.Id}.");
+                    return string.Format($"{Messages.DeleteFails} Visitor Id: {model.Id}.");
                 }
 
             }
@@ -69,13 +72,13 @@
         }
 
 
-        public override string Update(EmployeeModel model)
+        public override string Update(VisitorModel model)
         {
             try
             {
                 using (dbContext = new HotelsDBContext())
                 {
-                    var getEmployee = dbContext.Employees.SingleOrDefault(x => x.ID == model.Id);
+                    var getVisitor = dbContext.Visitors.SingleOrDefault(x => x.ID == model.Id);
                     //    Hotel hotel = MapperConfiguratior.Mapper.Map<Hotel>(model);
                     //    this.context.Hotels.Update(hotel);
                     //    int res = this.context.SaveChanges();
@@ -84,18 +87,15 @@
                     //        return "";
                     //    }
                     //    return string.Format($"{Messages.UpdateFails} Hotel Id: {model.Id}");
-                    getEmployee.FirstName = model.LastName;
-                    getEmployee.SurName = model.SurName;
-                    getEmployee.LastName = model.LastName;
-                    getEmployee.City = model.City;
-                    getEmployee.Title = model.Title;
-                    getEmployee.PhoneNumber = model.PhoneNumber;
-                    getEmployee.EGN = model.EGN;
-                    getEmployee.Hiredate = model.Hiredate;
-                    getEmployee.Email = model.Email;
-                    getEmployee.HotelID = model.HotelID;
-                    dbContext.Update(getEmployee);
-                    dbContext.SaveChanges();
+                    getVisitor.FirstName = model.FirstName;
+                    getVisitor.SurName = model.SurName;
+                    getVisitor.LastName = model.LastName;
+                    getVisitor.City = model.City;
+                    getVisitor.PhoneNumber = model.PhoneNumber;
+                    getVisitor.Email = model.Email;
+                    getVisitor.HotelID = model.HotelID;
+
+
                     return "";
 
                 }
@@ -107,4 +107,5 @@
             }
         }
     }
-}
+    }
+

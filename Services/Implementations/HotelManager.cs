@@ -1,5 +1,6 @@
 ﻿namespace Services.Implementations
 {
+    using Data;
     using Models;
     using Services.Common;
     using Services.CustomModels;
@@ -8,32 +9,32 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Data;
-    public class EmployeeManager : BaseManager<EmployeeModel>
+
+    public class HotelManager : BaseManager<HotelModel>
     {
         private HotelsDBContext dbContext;
-        public List<EmployeeModel> AllEmployees
+        public List<HotelModel> AllHotels
         {
             get
             {
-                var models = MapperConfiguratior.Mapper.Map<List<EmployeeModel>>(this.context.Employees.ToList());
+                var models = MapperConfiguratior.Mapper.Map<List<HotelModel>>(this.context.Hotels.ToList());
                 return models;
             }
         }
-        public EmployeeManager() : base(new Data.HotelsDBContext())
+        public HotelManager() : base(new Data.HotelsDBContext())
         {
 
         }
 
-        public override string Add(EmployeeModel model)
+        public override string Add(HotelModel model)
         {
             try
             {
                 using (context)
                 {
 
-                    Employee employee = MapperConfiguratior.Mapper.Map<Employee>(model);
-                    this.context.Employees.Add(employee);
+                    Hotel hotel = MapperConfiguratior.Mapper.Map<Hotel>(model);
+                    this.context.Hotels.Add(hotel);
                     this.context.SaveChanges();
                     return "";
                 }
@@ -44,21 +45,38 @@
                 throw new Exception(e.Message);
             }
         }
+        public string Delete(int id)
+        {
+            try
+            {
+                using (dbContext = new HotelsDBContext())
+                {
+                    var entity = dbContext.Hotels.FirstOrDefault(x => x.ID == id);
+                    dbContext.Remove(entity);
+                    dbContext.SaveChanges();
+                    return "";
+                }
+            }
+            catch (Exception e)
+            {
 
-        public override string Delete(EmployeeModel model)
+                throw new Exception(e.Message);
+            }
+        }
+        public override string Delete(HotelModel model)
         {
             try
             {
                 using (context)
                 {
-                    Employee employee = MapperConfiguratior.Mapper.Map<Employee>(model);
-                    this.context.Employees.Remove(employee);
+                    Hotel hotel = MapperConfiguratior.Mapper.Map<Hotel>(model);
+                    this.context.Hotels.Remove(hotel);
                     int res = this.context.SaveChanges();
                     if (res == 1)
                     {
                         return "";
                     }
-                    return string.Format($"{Messages.DeleteFails} Employee Id: {model.Id}.");
+                    return string.Format($"{Messages.DeleteFails} Hotel Id: {model.Id}.");
                 }
 
             }
@@ -69,13 +87,13 @@
         }
 
 
-        public override string Update(EmployeeModel model)
+        public override string Update(HotelModel model)
         {
             try
             {
                 using (dbContext = new HotelsDBContext())
                 {
-                    var getEmployee = dbContext.Employees.SingleOrDefault(x => x.ID == model.Id);
+                    var getHotel = dbContext.Hotels.SingleOrDefault(x => x.ID == model.Id);
                     //    Hotel hotel = MapperConfiguratior.Mapper.Map<Hotel>(model);
                     //    this.context.Hotels.Update(hotel);
                     //    int res = this.context.SaveChanges();
@@ -84,20 +102,16 @@
                     //        return "";
                     //    }
                     //    return string.Format($"{Messages.UpdateFails} Hotel Id: {model.Id}");
-                    getEmployee.FirstName = model.LastName;
-                    getEmployee.SurName = model.SurName;
-                    getEmployee.LastName = model.LastName;
-                    getEmployee.City = model.City;
-                    getEmployee.Title = model.Title;
-                    getEmployee.PhoneNumber = model.PhoneNumber;
-                    getEmployee.EGN = model.EGN;
-                    getEmployee.Hiredate = model.Hiredate;
-                    getEmployee.Email = model.Email;
-                    getEmployee.HotelID = model.HotelID;
-                    dbContext.Update(getEmployee);
+                    getHotel.HotelName = model.HotelName;
+                    getHotel.Address = model.Address;
+                    getHotel.City = model.City;
+                    getHotel.PostalCode = model.PostalCode;
+                    getHotel.PhoneNumber = model.PhoneNumber;
+                    getHotel.WebAddress = model.WebAddress;
+                    dbContext.Update(getHotel);
                     dbContext.SaveChanges();
                     return "";
-
+  
                 }
 
             }

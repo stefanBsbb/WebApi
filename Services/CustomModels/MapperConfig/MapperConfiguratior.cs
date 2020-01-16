@@ -25,17 +25,25 @@ namespace Services.CustomModels.MapperConfig
     {
         public MappingProfile()
         {
-           // CreateMap<ICustomModel, User>();
-
             CreateMap<UserModel, User>().ForMember(d => d.ID, opt => opt.MapFrom(x => x.Id));
             CreateMap<User, UserModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));
+
             CreateMap<RegisterModel, User>();
             CreateMap<Role, RoleModel>();
-            CreateMap<BookINsModel, BookIn>().ForMember(d => d.ID, opt => opt.MapFrom(x => x.Id));
-            CreateMap<BookIn, BookINsModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));
-            //CreateMap<ICustomModel, RoleModel>();
+
+            CreateMap<BookINsModel, BookIn>().ForMember(d => d.RoomID, opt => opt.MapFrom(x => x.Room));
+            CreateMap<BookIn, BookINsModel>().ForMember(d => d.Room, opt => opt.MapFrom(x => x.RoomID));
+
             CreateMap<UserRoles, UserRolesModel>();
-            CreateMap<Employee, EmployeeModel>();
+            CreateMap<Employee, EmployeeModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));
+            CreateMap<EmployeeModel, Employee>().ForMember(d => d.ID, opt => opt.MapFrom(x => x.Id));
+
+            CreateMap<Hotel, HotelModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));
+            CreateMap<HotelModel, Hotel>().ForMember(d => d.ID, opt => opt.MapFrom(x => x.Id));
+
+
+            CreateMap<Visitor, VisitorModel>();
+            CreateMap<Room, RoomModel>();
         }
     }
 }

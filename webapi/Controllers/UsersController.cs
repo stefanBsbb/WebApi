@@ -19,7 +19,6 @@ namespace webapi.Controllers
             this.manage = userManager;
             this.manager = manager;
         }
-        //манагер
         [HttpGet]
         public IActionResult AllUsers()
         {
@@ -44,7 +43,7 @@ namespace webapi.Controllers
             return BadRequest(ModelInfo.TurnModelToString(model));
         }
         [HttpDelete]
-        //[Authorize]
+        [Route("delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var res = manager.DeleteUser(id);
@@ -55,8 +54,7 @@ namespace webapi.Controllers
             return BadRequest();
         }
         [HttpPut]
-
-        [Authorize]
+        [Route("edit")]
         public IActionResult EditUser([FromBody]UserModel model)
         {
             var res = manager.EditUser(model);

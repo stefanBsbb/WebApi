@@ -5,28 +5,28 @@
     using Services.CustomModels;
     using Services.Implementations;
 
-    [Route("api/bookins")]
+    [Route("api/employees")]
     [ApiController]
 
-    public class BookInController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private BookINManager manager;
-        public BookInController(BookINManager bookINManager)
+        private EmployeeManager manager;
+        public EmployeeController(EmployeeManager employeeManager)
         {
-            this.manager = bookINManager;
+            this.manager = employeeManager;
         }
 
         [HttpGet]
-        public IActionResult AllBookINs()
+        public IActionResult AllEmployees()
         {
-            var all = manager.AllBookIns;
+            var all = manager.AllEmployees;
 
             return Ok(all);
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddBookIN(BookINsModel model)
+        public IActionResult AddEmployee(EmployeeModel model)
         {
 
             var res = manager.Add(model);
@@ -38,7 +38,7 @@
         }
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteBookIN(BookINsModel model)
+        public IActionResult DeleteEmployee(EmployeeModel model)
         {
 
             var res = manager.Delete(model);
@@ -50,7 +50,7 @@
         }
         [HttpPut]
         [Route("edit")]
-        public IActionResult EditBookIN([FromBody]BookINsModel model)
+        public IActionResult EditEmployee([FromBody]EmployeeModel model)
         {
 
             var res = manager.Update(model);

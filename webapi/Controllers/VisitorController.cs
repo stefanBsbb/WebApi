@@ -5,28 +5,29 @@
     using Services.CustomModels;
     using Services.Implementations;
 
-    [Route("api/bookins")]
+    [Route("api/visitors")]
     [ApiController]
 
-    public class BookInController : ControllerBase
+    public class VisitorController : ControllerBase
     {
-        private BookINManager manager;
-        public BookInController(BookINManager bookINManager)
+        private VisitorManager manager;
+        public VisitorController(VisitorManager visitorManager)
         {
-            this.manager = bookINManager;
+            this.manager = visitorManager;
         }
 
         [HttpGet]
-        public IActionResult AllBookINs()
+        public IActionResult AllVisitors()
         {
-            var all = manager.AllBookIns;
+            var all = manager.AllVisitors;
 
             return Ok(all);
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddBookIN(BookINsModel model)
+   
+        public IActionResult AddVisitor(VisitorModel model)
         {
 
             var res = manager.Add(model);
@@ -38,7 +39,7 @@
         }
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteBookIN(BookINsModel model)
+        public IActionResult DeleteVisitor(VisitorModel model)
         {
 
             var res = manager.Delete(model);
@@ -50,7 +51,7 @@
         }
         [HttpPut]
         [Route("edit")]
-        public IActionResult EditBookIN([FromBody]BookINsModel model)
+        public IActionResult EditVisitor([FromBody]VisitorModel model)
         {
 
             var res = manager.Update(model);

@@ -12,6 +12,7 @@
 
     public class BookINManager : BaseManager<BookINsModel>
     {
+        private HotelsDBContext dbContext;
         public List<BookINsModel> AllBookIns
         {
             get
@@ -31,6 +32,7 @@
             {
                 using (context)
                 {
+                   
                     BookIn bookIn = MapperConfiguratior.Mapper.Map<BookIn>(model);
                     this.context.BookIns.Add(bookIn);
                     this.context.SaveChanges();

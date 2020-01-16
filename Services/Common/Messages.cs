@@ -10,7 +10,7 @@
         public const string RoleExist = "Role exists!";
         public const string DeleteFails = "Cannot delete";
         public const string UpdateFails = "Cannot update";
-        public const string NotExistingProduct = "Product not exists";
-        public const string NotExistingCustomer = "Customer not exists";
+        public const string NotExistingBookIN = "BookIN doesn't exist";
+        public const string NotExistingVisitor = "Visitor doesn't exist";
     }
 }

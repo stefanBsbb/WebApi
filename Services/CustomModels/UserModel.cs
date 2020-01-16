@@ -17,7 +17,7 @@
 
         public string Email { get; set; }
 
-        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]
+        [Password(8, true, true, true, ErrorMessage = "Password isn't meeting the requirements")]
 
         [Compare("ConfirmPassword", ErrorMessage = "Passwords do not match!")]
         public string Password { get; set; }

@@ -14,7 +14,7 @@
 
         [Required]
         [JsonProperty("password")]
-        [Password(8, true, true, true, ErrorMessage = "Password not reply to demands")]
+        [Password(8, true, true, true, ErrorMessage = "Password isn't meeting the requirements")]
         public string Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Passwords do not match!")]

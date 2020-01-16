@@ -5,58 +5,58 @@
     using Services.CustomModels;
     using Services.Implementations;
 
-    [Route("api/bookins")]
+    [Route("api/hotels")]
     [ApiController]
 
-    public class BookInController : ControllerBase
+    public class HotelController : ControllerBase
     {
-        private BookINManager manager;
-        public BookInController(BookINManager bookINManager)
+        private HotelManager manager;
+        public HotelController(HotelManager hotelManager)
         {
-            this.manager = bookINManager;
+            this.manager = hotelManager;
         }
 
         [HttpGet]
-        public IActionResult AllBookINs()
+        public IActionResult AllHotels()
         {
-            var all = manager.AllBookIns;
+            var all = manager.AllHotels;
 
             return Ok(all);
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddBookIN(BookINsModel model)
+        public IActionResult AddHotel(HotelModel model)
         {
 
             var res = manager.Add(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/hotels", model);
             }
             return BadRequest();
         }
         [HttpDelete]
-        [Route("delete")]
-        public IActionResult DeleteBookIN(BookINsModel model)
+        [Route("delete/{id}")]
+        public IActionResult DeleteHotel(int id)
         {
 
-            var res = manager.Delete(model);
+            var res = manager.Delete(id);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/hotels", id);
             }
             return BadRequest();
         }
         [HttpPut]
         [Route("edit")]
-        public IActionResult EditBookIN([FromBody]BookINsModel model)
+        public IActionResult EditHotel([FromBody]HotelModel model)
         {
 
             var res = manager.Update(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/hotels", model);
             }
             return BadRequest();
         }

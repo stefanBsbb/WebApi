@@ -17,6 +17,7 @@
         }
 
         [HttpGet]
+        //gets all rooms
         public IActionResult AllRooms()
         {
             var all = manager.AllRooms;
@@ -26,6 +27,7 @@
 
         [HttpPost]
         [Route("add")]
+        //adds room by model
         public IActionResult AddRoom(RoomModel model)
         {
 
@@ -37,7 +39,21 @@
             return BadRequest();
         }
         [HttpDelete]
+        [Route("delete/{id}")]
+        //deletes hotel by id
+        public IActionResult DeleteRoomByID(int id)
+        {
+
+            var res = manager.Delete(id);
+            if (res.Length == 0)
+            {
+                return Created("api/rooms", id);
+            }
+            return BadRequest();
+        }
+        [HttpDelete]
         [Route("delete")]
+        //deletes room by model
         public IActionResult DeleteRoom(RoomModel model)
         {
 
@@ -50,6 +66,7 @@
         }
         [HttpPut]
         [Route("edit")]
+        //edits room by model
         public IActionResult EditRoom([FromBody]RoomModel model)
         {
 

@@ -47,7 +47,24 @@
                 throw new Exception(e.Message);
             }
         }
+        public string Delete(int id)
+        {
+            try
+            {
+                using (dbContext = new HotelsDBContext())
+                {
+                    var entity = dbContext.Visitors.FirstOrDefault(x => x.ID == id);
+                    dbContext.Remove(entity);
+                    dbContext.SaveChanges();
+                    return "";
+                }
+            }
+            catch (Exception e)
+            {
 
+                throw new Exception(e.Message);
+            }
+        }
         public override string Delete(VisitorModel model)
         {
             try

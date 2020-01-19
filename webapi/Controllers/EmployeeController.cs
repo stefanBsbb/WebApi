@@ -17,6 +17,7 @@
         }
 
         [HttpGet]
+        //gets all employees
         public IActionResult AllEmployees()
         {
             var all = manager.AllEmployees;
@@ -26,37 +27,54 @@
 
         [HttpPost]
         [Route("add")]
+        //adds employee by model
         public IActionResult AddEmployee(EmployeeModel model)
         {
 
             var res = manager.Add(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/employees", model);
             }
             return BadRequest();
         }
         [HttpDelete]
+        [Route("delete/{id}")]
+        //deletes employee by id
+        public IActionResult DeleteEmployeeByID(int id)
+        {
+
+            var res = manager.Delete(id);
+            if (res.Length == 0)
+            {
+                return Created("api/employees", id);
+            }
+            return BadRequest();
+        }
+        
+        [HttpDelete]
         [Route("delete")]
+        //deletes employee by model
         public IActionResult DeleteEmployee(EmployeeModel model)
         {
 
             var res = manager.Delete(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/employees", model);
             }
             return BadRequest();
         }
         [HttpPut]
         [Route("edit")]
+        //edits employee by model
         public IActionResult EditEmployee([FromBody]EmployeeModel model)
         {
 
             var res = manager.Update(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/employees", model);
             }
             return BadRequest();
         }

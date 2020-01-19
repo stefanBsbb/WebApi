@@ -17,6 +17,7 @@
         }
 
         [HttpGet]
+        //gets all visitors
         public IActionResult AllVisitors()
         {
             var all = manager.AllVisitors;
@@ -26,6 +27,7 @@
 
         [HttpPost]
         [Route("add")]
+        //adds a visitor by model
    
         public IActionResult AddVisitor(VisitorModel model)
         {
@@ -33,31 +35,46 @@
             var res = manager.Add(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/visitors", model);
+            }
+            return BadRequest();
+        }
+        [HttpDelete]
+        [Route("delete/{id}")]
+        //deletes visitor by id
+        public IActionResult DeleteVisitorByID(int id)
+        {
+
+            var res = manager.Delete(id);
+            if (res.Length == 0)
+            {
+                return Created("api/visitors", id);
             }
             return BadRequest();
         }
         [HttpDelete]
         [Route("delete")]
+        //deletes visitor by model
         public IActionResult DeleteVisitor(VisitorModel model)
         {
 
             var res = manager.Delete(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/visitors", model);
             }
             return BadRequest();
         }
         [HttpPut]
         [Route("edit")]
+        //edits visitor by model
         public IActionResult EditVisitor([FromBody]VisitorModel model)
         {
 
             var res = manager.Update(model);
             if (res.Length == 0)
             {
-                return Created("api/bookins", model);
+                return Created("api/visitors", model);
             }
             return BadRequest();
         }

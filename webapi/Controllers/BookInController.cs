@@ -17,6 +17,7 @@
         }
 
         [HttpGet]
+        //gets all bookins
         public IActionResult AllBookINs()
         {
             var all = manager.AllBookIns;
@@ -26,6 +27,7 @@
 
         [HttpPost]
         [Route("add")]
+        //adds bookin by model
         public IActionResult AddBookIN(BookINsModel model)
         {
 
@@ -37,7 +39,21 @@
             return BadRequest();
         }
         [HttpDelete]
+        [Route("delete/{id}")]
+        //deletes bookin by id
+        public IActionResult DeleteBookINByID(int id)
+        {
+
+            var res = manager.Delete(id);
+            if (res.Length == 0)
+            {
+                return Created("api/bookins", id);
+            }
+            return BadRequest();
+        }
+        [HttpDelete]
         [Route("delete")]
+        //deletes bookin by model
         public IActionResult DeleteBookIN(BookINsModel model)
         {
 
@@ -50,6 +66,7 @@
         }
         [HttpPut]
         [Route("edit")]
+        //edits bookin by model
         public IActionResult EditBookIN([FromBody]BookINsModel model)
         {
 

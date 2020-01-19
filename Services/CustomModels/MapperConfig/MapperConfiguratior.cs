@@ -31,8 +31,8 @@ namespace Services.CustomModels.MapperConfig
             CreateMap<RegisterModel, User>();
             CreateMap<Role, RoleModel>();
 
-            CreateMap<BookINsModel, BookIn>().ForMember(d => d.RoomID, opt => opt.MapFrom(x => x.Room));
-            CreateMap<BookIn, BookINsModel>().ForMember(d => d.Room, opt => opt.MapFrom(x => x.RoomID));
+            CreateMap<BookINsModel, BookIn>().ForMember(d => d.ID, opt => opt.MapFrom(x => x.Id));
+            CreateMap<BookIn, BookINsModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));
 
             CreateMap<UserRoles, UserRolesModel>();
             CreateMap<Employee, EmployeeModel>().ForMember(d => d.Id, opt => opt.MapFrom(x => x.ID));

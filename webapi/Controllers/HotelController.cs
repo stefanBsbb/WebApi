@@ -17,6 +17,7 @@
         }
 
         [HttpGet]
+        //gets all hotels
         public IActionResult AllHotels()
         {
             var all = manager.AllHotels;
@@ -26,6 +27,7 @@
 
         [HttpPost]
         [Route("add")]
+        //adds hotel by id
         public IActionResult AddHotel(HotelModel model)
         {
 
@@ -38,7 +40,8 @@
         }
         [HttpDelete]
         [Route("delete/{id}")]
-        public IActionResult DeleteHotel(int id)
+        //deletes hotel by id
+        public IActionResult DeleteHotelByID(int id)
         {
 
             var res = manager.Delete(id);
@@ -50,6 +53,7 @@
         }
         [HttpPut]
         [Route("edit")]
+        //edits hotel by model
         public IActionResult EditHotel([FromBody]HotelModel model)
         {
 

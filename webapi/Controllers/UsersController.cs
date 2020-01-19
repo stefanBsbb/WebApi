@@ -19,6 +19,7 @@ namespace webapi.Controllers
             this.manage = userManager;
             this.manager = manager;
         }
+        //gets all users
         [HttpGet]
         public IActionResult AllUsers()
         {
@@ -29,6 +30,7 @@ namespace webapi.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
+        //register
         public IActionResult RegisterUser([FromBody] RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -44,6 +46,7 @@ namespace webapi.Controllers
         }
         [HttpDelete]
         [Route("delete/{id}")]
+        //delets user by id
         public IActionResult DeleteUser(int id)
         {
             var res = manager.DeleteUser(id);
@@ -55,6 +58,7 @@ namespace webapi.Controllers
         }
         [HttpPut]
         [Route("edit")]
+        //edits by model
         public IActionResult EditUser([FromBody]UserModel model)
         {
             var res = manager.EditUser(model);
@@ -67,6 +71,7 @@ namespace webapi.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
+        //login
         public IActionResult Login([FromBody] LoginModel request)
         {
             var res = manager.LoginUser(request);

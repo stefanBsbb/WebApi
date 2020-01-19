@@ -45,7 +45,24 @@
                 throw new Exception(e.Message);
             }
         }
+        public string Delete(int id)
+        {
+            try
+            {
+                using (dbContext = new HotelsDBContext())
+                {
+                    var entity = dbContext.BookIns.FirstOrDefault(x => x.ID == id);
+                    dbContext.Remove(entity);
+                    dbContext.SaveChanges();
+                    return "";
+                }
+            }
+            catch (Exception e)
+            {
 
+                throw new Exception(e.Message);
+            }
+        }
         public override string Delete(BookINsModel model)
         {
             try
